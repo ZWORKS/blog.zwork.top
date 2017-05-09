@@ -1,0 +1,10 @@
+{
+    "name": "每日签到",
+    "brief": "每日签到。插件为赛鸽爱好者制作，网址：http://www.sgahz.net/",
+    "version": "1.3",
+    "bbs_version": "4.0",
+    "installed": 1,
+    "enable": 1,
+    "hooks_rank": [],
+    "dependencies": []
+}

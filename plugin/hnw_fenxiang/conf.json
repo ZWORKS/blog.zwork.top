@@ -1,0 +1,11 @@
+{
+    "name": "分享插件",
+    "brief": "插入分享代码到帖子详情页下方。http://00058.net",
+    "version": "1.0",
+    "bbs_version": "4.0",
+    "installed": 1,
+    "enable": 1,
+    "hooks_rank": [],
+    "overwrites_rank": [],
+    "dependencies": []
+}

@@ -1,0 +1,11 @@
+{
+	"name":"乐客自助广告插件",
+	"brief":"在网站页面上方，格子图片展示会员广告，此功能会消耗会员积分，会员可自行发布，无需审核。",
+	"version":"1.2",
+	"bbs_version":"4.0",
+	"installed":0,
+	"enable":0,
+	"hooks_rank":[],
+	"overwrites_rank":[],
+	"dependencies":[]
+}

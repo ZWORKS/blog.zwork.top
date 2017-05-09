@@ -1,0 +1,10 @@
+{
+    "name": "微信登陆",
+    "brief": "微信一键登陆，自动生成用户名，获取头像，完成登陆。有问题请联系：jianjianxu@qq.com。",
+    "version": "1.1",
+    "bbs_version": "4.0",
+    "installed": 1,
+    "enable": 1,
+    "hooks_rank": [],
+    "dependencies": []
+}

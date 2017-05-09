@@ -1,0 +1,20 @@
+<script><?php $sg_sign = db_find_one('sg_sign', array('uid'=>$uid)); ?>
+var sg_sign = $('#sg_sign');
+var sign = $('#sign');
+var peo = $('#peo');
+var day = $('#day');
+var s1 = '<?php if($sg_sign['stime'] > strtotime('today')) { echo '已签';}else{ echo '签到';} ?>'; 
+var s2 = '<?php if(isset($runtime['sg_sign'])) { echo $runtime['sg_sign'];}else{ echo '0';} ?>人'; 
+var s3 = '连续签到<?php if(isset($sg_sign['keepdays'])) { echo $sg_sign['keepdays'];}else{ echo '0';} ?>天'; 
+var sign = sign.html(s1);
+var peo = peo.html(s2);
+var day = day.html(s3);
+sg_sign.on('click', function() {
+	var postdata = sg_sign.serialize();
+	$.xpost(xn.url('sg_sign'), postdata, function(code, message) {
+			$.alert(message);
+			sg_sign.delay(1000).location(xn.url('sg_sign'));
+	});
+	return false;
+});
+</script>

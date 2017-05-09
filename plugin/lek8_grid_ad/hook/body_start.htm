@@ -1,0 +1,48 @@
+<?php
+/*
+	ZYC 插件实例：图片格子广告插件 显示
+	乐客吧www.lek8.com制作 QQ:804772778
+*/
+
+$linklist = db_find('grid_ad', array(), array('rank'=>-1), 1, 1000, 'ad_id');
+$num = 1;
+$set_list = db_find('grid_ad_set', array('id'=>1));	
+$s_grid = $set_list [0]['s_grid'];
+$s_img = $set_list [0]['s_img'];
+
+?>
+<style type="text/css">
+.col-nb-a { width: 49%;max-height: 60px;float:left;margin:2px 0px 2px 0px;}
+.col-nb-b { width: 49%;max-height: 60px;float:right;margin:2px 0px 2px 0px}
+</style>
+
+<div class="row">
+	<div class="container">
+		<div class="row">		
+<?php if($linklist) { foreach ($linklist as $link) { ?>				
+<?php if($num%2!=0) {  ?>	
+			<div class="col-md-6">
+				<div class="col-nb-a">
+					<a rel="external nofollow" href="<?php echo $link['url'];?>" target="_blank"><img src="<?php echo $link['img'];?>" height="60" width="100%" alt="<?php echo $link['name'];?>" border="0"></a>	  
+				</div>
+<?php }else{ ?>
+				<div class="col-nb-b">
+					<a rel="external nofollow" href="<?php echo $link['url'];?>" target="_blank"><img src="<?php echo $link['img'];?>" height="60" width="100%" alt="<?php echo $link['name'];?>" border="0"></a>	  
+				</div>
+			</div>
+<?php }$num+=1;}if($num%2==0) { ?>	
+				<div class="col-nb-b">
+					<a href="/?lek8_my_ad.htm" target="_self"><img src="<?php echo $s_img;?>" height="60" width="100%" alt="虚位以待，300/月，100/周，广告联系客服" border="0"> </a> 
+				</div>
+		</div>
+<?php }elseif($num < $s_grid){ ?>		
+			<div class="col-md-6">
+				<div class="col-nb-a">
+					<a href="/?lek8_my_ad.htm" target="_self"><img src="<?php echo $s_img;?>" height="60" width="100%" alt="虚位以待，300/月，100/周，广告联系客服" border="0"></a>
+				</div>
+			</div>
+
+<?php }} ?>	
+		</div>
+	</div>
+</div>

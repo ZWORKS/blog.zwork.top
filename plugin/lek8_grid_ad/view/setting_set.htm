@@ -1,0 +1,70 @@
+<?php include _include(ADMIN_PATH.'view/htm/header.inc.htm');?>
+
+<div class="row">
+		<div class="col-xs-12">
+		<div class="btn-group m-b-1" role="group">
+			<a role="button" class="btn btn-secondary" href="<?php echo url('plugin-setting-lek8_grid_ad-list');?>">广告列表</a>
+			<a role="button" class="btn btn-secondary" href="<?php echo url('plugin-setting-lek8_grid_ad-set');?>">参数设置</a>
+		</div>
+		<div class="card">
+			<div class="card-block">
+				<form action="<?php echo url('plugin-setting-lek8_grid_ad');?>" method="post" id="form">
+					<h4 class="card-title">图片格子-参数设置</h4>
+					<div class="table-responsive arrlist">
+						<table class="table" style="min-width: 800px">
+							<thead>
+								<tr align="center">
+									<th>每次展期（天）</th>
+									<th>扣取金币（个）</th>
+									<th>开启格子[填双数，4格一行]</th>
+									<th>默认图片（空位以待）</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr align="center">
+									<td><input type="text" class="form-control" name="s_zq" value="<?php echo $set_list [0]['s_zq']; ?>" placeholder="展期" /></td>
+									<td><input type="text" class="form-control" name="s_gold" value="<?php echo $set_list [0]['s_gold']; ?>"  placeholder="金币" /></td>
+									<td><input type="text" class="form-control" name="s_grid" value="<?php echo $set_list [0]['s_grid']; ?>"  placeholder="格子数" /></td>
+									<td><input type="text" class="form-control" name="s_img" value="<?php echo $set_list [0]['s_img']; ?>"  placeholder="图片300*80" /></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<hr />
+					<p class="text-center">
+						<button type="submit" class="btn btn-primary" id="submit" data-loading-text="<?php echo lang('submiting');?>..." style="width: 30rem;"><?php echo lang('confirm');?></button>
+					</p>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php include _include(ADMIN_PATH.'view/htm/footer.inc.htm');?>
+
+<script>
+
+var jform = $("#form");
+var jsubmit = $("#submit");
+jform.base64_encode_file(); // 对文件进行 base64 编码，处理文件上传，很方便
+
+jform.on('submit', function(){
+	jform.reset();
+	var postdata = jform.serialize();
+	jsubmit.button('loading');
+	$.xpost(jform.attr('action'), postdata, function(code, message) {
+		if(code == 0) {
+			$.alert(message);
+			jsubmit.text(message).delay(6000).location();
+			return;
+		} else {
+			alert(message);
+			jsubmit.button('reset');
+		}
+	});
+	return false;
+});
+
+$('#nav_pc li.plugin, #nav_mobile li.plugin').tab('show');
+
+</script>

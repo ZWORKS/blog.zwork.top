@@ -1,0 +1,179 @@
+<?php $conf = G('conf');?>
+<?php $header = G('header');?>
+<?php $user = G('user');?>
+<?php $uid = G('uid');?>
+<?php $gid = G('gid');?>
+<?php $fid = G('fid');?>
+<?php $tid = G('tid');?>
+<?php $pid = G('pid');?>
+<?php $route = G('route');?>
+<?php $forumlist_show = G('forumlist_show');?>
+<?php $static_version = $conf['static_version'];?>
+<!DOCTYPE html>
+<html lang="<?php echo $conf['lang'];?>">
+<head>
+	
+	<?php echo defined('BASE_HREF') ? '<base href="'.BASE_HREF.'" />' : '' ;?>
+	
+	<style>
+.excerpt{
+	border: 1px solid #eaeaea;
+	border-width: 1px 0;
+	padding: 10px 10px 10px 240px;
+	overflow: hidden;
+	background-color: #fff;
+	margin-bottom: -1px;
+}
+.excerpt-text{padding-left: 10px;}
+.excerpt-text .note{margin-bottom: 0;}
+.excerpt:hover{
+	background-color: #f9f9f9;
+	position: relative;
+	z-index: 2;
+}
+.excerpt .focus{
+	float: left;
+	margin-left: -230px;
+	width: 220px;
+}
+.excerpt .thumb{
+	width: 220px;
+	height: 150px;
+}
+.excerpt header{
+	height: 28px;
+	overflow: hidden;
+}
+.excerpt .cat{
+	color: #fff;
+	background-color: #45BCF9;
+	padding: 3px 6px;
+	display: inline-block;
+	position: relative;
+	top: -2px;
+	margin-right: 6px;
+}
+.excerpt .cat:hover{
+	opacity: 0.85;
+	filter:alpha(opacity=85);
+}
+.excerpt .cat i{
+	position: absolute;
+	top: 50%;
+	margin-top: -4px;
+	right: -4px;
+	display: inline-block;
+	width: 0;
+	height: 0;
+	vertical-align: middle;
+	border-left: 4px solid #45BCF9;
+	border-top: 4px solid transparent;
+	border-bottom: 4px solid transparent;
+}
+.excerpt h2{
+	display: inline;
+	font-size: 18px;
+	line-height: 24px;
+	margin-top: 0;
+	font-weight: bold;
+}
+.excerpt h2 a{
+	color: #555;
+}
+
+.excerpt h2 a:hover{
+	color: #45B6F7;
+}
+.excerpt h2 a span{
+	color: #FF5E52;
+}
+.excerpt h2 a:hover span{
+	color: #45B6F7;
+}
+.excerpt time, .excerpt .pv, .excerpt .pc, .excerpt .author{
+	margin-right: 20px;
+}
+.excerpt .note{
+	color: #999;
+	word-wrap:break-word;
+	margin-bottom: 0;
+	margin-top:5px;
+    line-height: 25px;
+    max-height: 100px;
+    overflow: hidden;
+    font-weight: normal;
+}
+.excerpt .meta{
+	color: #999;
+	border-bottom: 1px dotted #ccc;
+}
+.excerpt .meta .fa{
+	margin-right: 4px;
+}
+article.excerpt p {
+	margin:0;
+}
+.card div.text-center:last-child {
+	margin: 10px 0;
+}
+</style><?php $qq_login = kv_get('qq_login_setting'); ?>
+<?php echo $qq_login['meta'];?>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="author" content="XiunoBBS 4.0" />
+	<meta name="keywords" content="<?php echo $header['keywords'];?>" />
+	<meta name="description" content="<?php echo $header['description'];?>" />
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1" >
+
+	<title><?php echo $header['title'];?></title>
+	
+	<link rel="shortcut icon" href="<?php echo $conf['view_url'];?>img/favicon.ico" />
+	<link rel="icon" sizes="32x32" href="<?php echo $conf['view_url'];?>img/favicon.ico">
+	<link rel="Bookmark" href="<?php echo $conf['view_url'];?>img/favicon.ico" />
+	<?php if(DEBUG) { ?>
+	<link rel="stylesheet" href="<?php echo $conf['view_url'];?>css/bootstrap.css<?php echo $static_version;?>">
+	<?php } else { ?>
+	<link rel="stylesheet" href="<?php echo $conf['view_url'];?>css/bootstrap.min.css<?php echo $static_version;?>">
+	<?php } ?>
+	
+	<style>
+/*
+box-shadow: 0 0 5px red;
+*/
+@keyframes xndigest {
+	0% { color: red; text-shadow: 0 0 3px #FF8D8D;} 
+	20% { color: orange; text-shadow: 0 0 3px #FFE1AD;} 
+	40% { color: green; text-shadow: 0 0 3px #B3FFAF;} 
+	65% { color: blue; text-shadow: 0 0 3px #AFE4FF;} 
+	80% { color: purple; text-shadow: 0 0 3px #FFC9F3;} 
+	100% { color: red; text-shadow: 0 0 3px #FF8D8D;} 
+}
+.nav-tabs .nav-digest > i.icon-diamond{color: red;  animation: xndigest 5s linear infinite; }
+
+i.icon-digest-1 {  text-shadow: 0 0 3px #AFE4FF; }
+i.icon-digest-2 {  text-shadow: 0 0 3px #FFF177; }
+i.icon-digest-3 {  text-shadow: 0 0 3px #FF8D8D; }
+.icon-digest-1:before { content: "\f219";  color: #5BC0DE;} /* "\f0a5" */
+.icon-digest-2:before { content: "\f219";  color: #ECA541;}
+.icon-digest-3:before { content: "\f219"; color: #D53D38;}
+.icon-digest-3:afteer { content: "精"; color: #D53D38;}
+</style>
+	
+</head>
+
+<body>
+
+
+
+<div id="wrapper">
+	
+	
+	
+	<?php include _include(APP_PATH.'view/htm/header_nav.inc.htm');?>
+	
+	<div id="body" class="container">
+	
+	
+	

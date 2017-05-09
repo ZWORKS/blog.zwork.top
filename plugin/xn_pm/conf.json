@@ -1,0 +1,11 @@
+{
+    "name": "ZYC BLOG 短消息系统",
+    "brief": "基于 ZYC 的短消息系统。",
+    "version": "1.0",
+    "bbs_version": "4.0",
+    "installed": 1,
+    "enable": 1,
+    "hooks_rank": [],
+    "overwrites_rank": [],
+    "dependencies": []
+}

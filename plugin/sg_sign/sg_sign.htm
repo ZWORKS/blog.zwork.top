@@ -1,0 +1,117 @@
+<?php include _include(APP_PATH.'view/htm/header.inc.htm');?>
+<div class="row">
+	<div class="col-lg-9">
+		<ol class="breadcrumb m-b-sm hidden-md-down">
+			<li class="breadcrumb-item"><a href="./"><i class="icon-home" aria-hidden="true"></i></a></li>
+			<li class="breadcrumb-item active">每日签到</a></li>
+		</ol>
+		<div class="card">
+			<div class="card-header">
+				<ul class="nav nav-tabs card-header-tabs pull-xs-left">
+					<li class="nav-item">
+						<a class="nav-link <?php echo $active == 'default' ? 'active' : '';?>" href="#">今日排名</a>
+					</li>
+				</ul>
+			</div>
+			<div class="card-block">
+						<?php if($sg_signlist) { ?>
+							<table class="table table-hover threadlist">
+										<tr style="font-size: 18px;">
+											<th width="100px"><b>用户</b></th>
+											<th width="60px"><b>排名</b></th>
+											<th width="80px"><b>总积分</b></th>
+											<th width="80px" class="hidden-md-down"><b>今日积分</b></th>
+											<th width="100px" class="hidden-md-down"><b>签到时间</b></th>
+											<th width="80px" class="hidden-md-down"><b>签到天数</b></th>
+											<th width="80px" class="hidden-md-down"><b>连签天数</b></th>										
+										</tr>
+
+									
+									<?php if(is_array($sg_signlist)) { foreach($sg_signlist as $_signlist) { ?>
+											<tr>
+											    <td width="100px"><?php echo $_signlist['user']; ?></td>
+												<td width="60px"><?php echo $_signlist['id']; ?></td>
+												<td width="60px"><?php echo $_signlist['credits']; ?>分</td>
+												<td width="60px" class="hidden-md-down"><?php echo $_signlist['todaycredits']; ?>分</td>
+												<td width="100px" class="hidden-md-down"><?php echo humandate($_signlist['stime']); ?></td>
+												<td width="80px" class="hidden-md-down"><?php echo $_signlist['counts']; ?>天</td>
+												<td width="80px" class="hidden-md-down"><?php echo $_signlist['keepdays']; ?>天</td>
+											</tr>
+										<?php } } ?>
+									
+							</table>
+							<?php } ?>		
+			</div>
+		</div>
+	</div>
+	<div class="col-lg-3">
+		<div class="card mibbs_con hidden-md-down" id="start">
+			<span id="sg_sign" class="mibbs_signpanel JD_sign ">
+				<div class="font" id="sign">签到</div>
+				<div class="fblock">
+					<div class="all" id="peo">0人</div>
+					<div class="line">
+						<span style="font-size:12px;" id="day">连续签到0天</span>
+					</div>
+				</div>
+			</span>
+		</div>			
+		<div class="card">
+			
+			<h4 class="text-center m-t-1">每日签到奖励</h4>
+			<p class="m-x-1 text-middle">
+			1、每日签到奖励 <?php echo $kv['sign1']; ?> 积分<br>
+			2、签到3天奖励 <?php echo $kv['sign2']; ?> 积分<br>
+			3、签到7天奖励 <?php echo $kv['sign3']; ?> 积分<br>
+			4、签到15天奖励 <?php echo $kv['sign4']; ?> 积分<br>
+			5、签到15天以上奖励 <?php echo $kv['sign7']; ?> 至 <?php echo $kv['sign8']; ?> 积分<br>
+			6、每日签到第一名奖励 <?php echo $kv['sign5']; ?> 积分<br>
+			7、每日签到第二至五名奖励 <?php echo $kv['sign6']; ?> 积分<br>
+			   <p class="text-right text-middle m-x-1">插件由<a href="http://www.sgahz.net/" target="_blank">赛鸽爱好者</a>制作</p>
+			</p>
+			<div class="card-group-nest">
+				<div class="card col-xs-4">
+					<div class="card-block">
+						<div class="text-center text-muted text-nowrap small">签到人数</div>
+						<div class="text-center text-middle text-bold"><?php echo runtime_get('sg_signnum'); ?>人</div>
+					</div>
+				</div>
+				<div class="card col-xs-4">
+					<div class="card-block">
+						<div class="text-center text-muted text-nowrap small">今日签到</div>
+						<div class="text-center text-middle text-bold"><?php echo runtime_get('sg_sign'); ?>人</div>
+					</div>
+				</div>
+				<div class="card col-xs-4">
+					<div class="card-block  center-block">
+						<div class="text-center text-muted text-nowrap small">今日第一</div>
+						<div class="text-center text-middle text-bold"><?php echo runtime_get('sg_sign_one'); ?></div>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+	</div>
+</div>
+
+<?php include _include(APP_PATH.'view/htm/footer.inc.htm');?>
+<script><?php $sg_sign = db_find_one('sg_sign', array('uid'=>$uid)); ?>
+var sg_sign = $('#sg_sign');
+var sign = $('#sign');
+var peo = $('#peo');
+var day = $('#day');
+var s1 = '<?php if($sg_sign['stime'] > strtotime('today')) { echo '已签';}else{ echo '签到';} ?>'; 
+var s2 = '<?php if(runtime_get('sg_sign')) { echo runtime_get('sg_sign');}else{ echo '0';} ?>人'; 
+var s3 = '连续签到<?php if(isset($sg_sign['keepdays'])) { echo $sg_sign['keepdays'];}else{ echo '0';} ?>天'; 
+var sign = sign.html(s1);
+var peo = peo.html(s2);
+var day = day.html(s3);
+sg_sign.on('click', function() {
+	var postdata = sg_sign.serialize();
+	$.xpost(xn.url('sg_sign'), postdata, function(code, message) {
+			$.alert(message);
+			sg_sign.delay(2000).location(xn.url('sg_sign'));
+	});
+	return false;
+});
+</script>

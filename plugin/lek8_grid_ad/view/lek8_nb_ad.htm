@@ -1,0 +1,25 @@
+<?php include _include(APP_PATH.'view/htm/header.inc.htm');?>
+ 
+<div class="row">
+	<div class="col-lg-10 offset-lg-1">
+		<div class="card">
+			<div class="card-block">
+				<h4 class="text-center">图片格子广告-自助发布系统-介绍</h4>
+				<hr />
+				<h5 class="card-title">1、在网站页面上方，格子图片展示会员广告，此功能会消耗会员积分，会员可自行发布，无需审核。</h5>
+				<h5 class="card-title">2、广告展示期为<?php echo $s_zq;?>天，每次扣取金币<?php echo $s_jb;?>个，，其他展期可协商，如需帮助请联系客服。</h5>
+				<h5 class="card-title">3、金币获取途径：积分充值（点击网站顶部充值按钮）、发帖回帖、社区推广、活动奖励、、等。</h5>
+				<h5 class="card-title">4、用户使用自助广告服务，不得逾越法律法规、社会主义制度、国家利益、公民合法权益、社会公共秩序、道德风尚和信息真实性“七条底线”；应尊重其他用户合法权益及公民个人隐私，尊重社会公序良俗，遵守国家法律法规。</h5>
+			</div>
+			
+			<p class="text-xs-center">
+				<a role="button" class="btn btn-secondary btn-lg" href="javascript:history.back();"><?php echo lang('back');?></a>
+				<a class="btn btn-primary btn-lg" href="/?user-login.htm" role="button">现在就去登录</a>
+			</p>
+			<h6 class="card-title">由于你尚未登录，跳转至此页面</h6>
+		</div>
+
+	</div>
+</div>
+
+<?php include _include(APP_PATH.'view/htm/footer.inc.htm');?>

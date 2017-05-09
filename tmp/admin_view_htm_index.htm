@@ -1,0 +1,145 @@
+<?php include _include(ADMIN_PATH.'view/htm/header.inc.htm');?>
+
+
+
+<div class="row">
+	<div class="col-lg-10 offset-lg-1">
+				
+		
+
+		<h3><?php echo lang('admin_index');?></h3>
+		<hr />
+		<div class="card card-block m-t-1">
+			<h5><?php echo lang('site_stat_info');?></h5>
+			<hr />
+			<div class="row">
+				<div class="col-md-4 p-l-2 p-r-2">
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('threads');?>：</dt>
+						<dd class="text-right"><?php echo $stat['threads']; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('posts');?>：</dt>
+						<dd class="text-right"><?php echo $stat['posts']; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('users');?>：</dt>
+						<dd class="text-right"><?php echo $stat['users']; ?></dd>
+					</dl>
+					
+				</div>
+				<div class="col-md-4 m-b-1 p-l-2 p-r-2">
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('attachs');?>：</dt>
+						<dd class="text-right"><?php echo $stat['attachs']; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('disk_free_space');?>：</dt>
+						<dd class="text-right"><?php echo $stat['disk_free_space']; ?></dd>
+					</dl>
+				</div>
+				<div class="col-md-4 m-b-1 p-l-2 p-r-2">
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('onlines');?>：</dt>
+						<dd class="text-right"><?php echo $runtime['onlines']; ?></dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="card card-block m-t-1">
+			<h5><?php echo lang('server_info');?> <a href="<?php echo url('index-phpinfo');?>"><small>[PHPINFO]</small></a></h5>
+			<hr />
+			<div class="row">
+				<div class="col-md-4 m-b-1 p-l-2 p-r-2">
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('os');?>：</dt>
+						<dd class="text-right"><?php echo PHP_OS; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted">Web Server：</dt>
+						<dd class="text-right nowrap"><?php echo $info['SERVER_SOFTWARE']; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted">PHP：</dt>
+						<dd class="text-right"><?php echo PHP_VERSION;?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('database');?>：</dt>
+						<dd class="text-right"><?php echo $conf['db']['type']; ?><br><small> (<?php echo $info['dbversion']; ?>)</small></dd>
+					</dl>
+				</div>
+				<div class="col-md-4 m-b-1 p-l-2 p-r-2">
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('post_max_size');?>：</dt>
+						<dd class="text-right"><?php echo $info['post_max_size']; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('upload_max_filesize');?>：</dt>
+						<dd class="text-right"><?php echo $info['upload_max_filesize']; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('allow_url_fopen');?>：</dt>
+						<dd class="text-right"><?php echo $info['allow_url_fopen']; ?> </dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('safe_mode');?>：</dt>
+						<dd class="text-right"><?php echo $info['safe_mode']; ?></dd>
+					</dl>
+				</div>
+				<div class="col-md-4 m-b-1 p-l-2 p-r-2">
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('max_execution_time');?>：</dt>
+						<dd class="text-right"><?php echo $info['max_execution_time']; ?>Seconds</dd>
+					</dl>
+					
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('memory_limit');?>：</dt>
+						<dd class="text-right"><?php echo $info['memory_limit']; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('client_ip');?>：</dt>
+						<dd class="text-right"><?php echo $ip; ?></dd>
+					</dl>
+					<dl class="row m-b-1">
+						<dt class="text-muted"><?php echo lang('server_ip');?>：</dt>
+						<dd class="text-right"><?php echo _SERVER('SERVER_ADDR'); ?></dd>
+					</dl>
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		<div class="card card-block m-t-1">
+			<h5><?php echo lang('dev_team_info');?></h5>
+			<hr />
+			<p>Dev Leader: zycsnd88888888@gmail.com</p>
+			<p>Official Site: <a href="http://www.zycsnd.cn/" target="_blank">http://www.zycsnd.cn/</a></p>
+			<p>Dev Team: </p>
+			<blockquote class="m-l-3">
+				<a href="http://me.zycsnd.cn/" target="_blank">周洋醇</a>
+			</blockquote>
+		</div>
+		
+		
+		
+		<a role="button" class="btn btn-primary center-block hidden-md-up" href="../<?php echo url('my');?>"> <?php echo lang('back');?> </a>
+	</div>
+</div>
+
+
+
+<?php include _include(ADMIN_PATH.'view/htm/footer.inc.htm');?>
+
+<script>
+
+$('#nav_pc li.home, #nav_mobile li.home').tab('show');
+
+</script>
+<?php echo $lastversion; ?>
+
+
+

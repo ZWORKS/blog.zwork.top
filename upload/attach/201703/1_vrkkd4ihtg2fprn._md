@@ -1,0 +1,295 @@
+一，Javascript基础知识
+1.写个HTML表单示例，包含常见的表单元素。
+
+```
+<form action="index.php" method="get">
+  name: <input type="text" name="name" />
+  password: <input type="password" name="pwd" />
+  <input type="submit" value="Submit" />
+</form>
+```
+
+2.列表js数组类型中的常用方法。
+
+alert()
+
+join()
+
+shift()
+
+unshift()
+
+3.用jQuery取得一个input的值？取得一个input得属性？
+
+$("#input").val();
+
+$("#input").attr("value"); 
+
+4.jQuery中的使用AJAX时的常用函数？
+
+$.get()
+
+$.post()
+
+5.写一个简单的AJAX示例，实现投票计数效果。注:可结合PHP。 
+
+```
+<html>
+<head>
+<script src="poll.js"></script> 
+</head>
+<body>
+
+<div id="poll">
+<h2>Do you like PHP and AJAX so far?</h2>
+
+<form>
+Yes: 
+<input type="radio" name="vote" 
+value="0" onclick="getVote(this.value)">
+<br />
+No: 
+<input type="radio" name="vote" 
+value="1" onclick="getVote(this.value)">
+</form>
+</div>
+
+</body>
+</html>
+```
+
+```
+var xmlHttp
+
+function getVote(int)
+{
+xmlHttp=GetXmlHttpObject()
+if (xmlHttp==null)
+ {
+ alert ("Browser does not support HTTP Request")
+ return
+ } 
+var url="poll_vote.php"
+url=url+"?vote="+int
+url=url+"&sid="+Math.random()
+xmlHttp.onreadystatechange=stateChanged 
+xmlHttp.open("GET",url,true)
+xmlHttp.send(null)
+} 
+
+function stateChanged() 
+{ 
+ if (xmlHttp.readyState==4 || xmlHttp.readyState=="complete")
+ { 
+ document.getElementById("poll").
+ innerHTML=xmlHttp.responseText;
+ } 
+} 
+
+function GetXmlHttpObject()
+{ 
+var objXMLHttp=null
+if (window.XMLHttpRequest)
+ {
+ objXMLHttp=new XMLHttpRequest()
+ }
+else if (window.ActiveXObject)
+ {
+ objXMLHttp=new ActiveXObject("Microsoft.XMLHTTP")
+ }
+return objXMLHttp
+}
+```
+
+```
+<?php
+$vote = $_REQUEST['vote'];
+
+//get content of textfile
+$filename = "poll_result.txt";
+$content = file($filename);
+
+//put content in array
+$array = explode("||", $content[0]);
+$yes = $array[0];
+$no = $array[1];
+
+if ($vote == 0)
+ {
+ $yes = $yes + 1;
+ }
+if ($vote == 1)
+ {
+ $no = $no + 1;
+ }
+
+//insert votes to txt file
+$insertvote = $yes."||".$no;
+$fp = fopen($filename,"w");
+fputs($fp,$insertvote);
+fclose($fp);
+?>
+
+<h2>Result:</h2>
+<table>
+<tr>
+<td>Yes:</td>
+<td>
+<img src="poll.gif"
+width='<?php echo(100*round($yes/($no+$yes),2)); ?>'
+height='20'>
+<?php echo(100*round($yes/($no+$yes),2)); ?>%
+</td>
+</tr>
+<tr>
+<td>No:</td>
+<td>
+<img src="poll.gif" 
+width='<?php echo(100*round($no/($no+$yes),2)); ?>'
+height='20'>
+<?php echo(100*round($no/($no+$yes),2)); ?>%
+</td>
+</tr>
+</table>
+```
+
+6简述下cookie、session的联系和区别，从协议产生的原因与作用说明
+
+1、http无状态协议，不能区分用户是否是从同一个网站上来的，同一个用户请求不同的页面不能看做是同一个用户。
+
+2、SESSION存储在服务器端，安全。COOKIE保存在客户端。Session依赖于cookie进行传递。
+
+
+7写一个函数可以便利文件夹下所有的文件夹和文件，返回后缀为PHP的所有文件
+
+```
+function getfiles($path){ 
+
+	foreach(glob(path) as afile){ 
+
+	if(is_dir($afile)) 
+
+	{ getfiles(afile.'/*'); } else { echo afile.'<br />'; } 
+
+} 
+}
+echo * .$file .php ;
+
+```
+
+8.写一个函数，取出图文混排网文中所有的图片链接。
+
+```
+function get_img_url($site_name){ 
+ $site_fd = fopen($site_name, "r"); 
+ $site_content = ""; 
+ while (!feof($site_fd)) { 
+  $site_content .= fread($site_fd, 1024); 
+ } 
+ $reg_tag = '/<img.*?\"([^\"]*(jpg|bmp|jpeg|gif)).*?>/'; 
+ $ret = preg_match_all($reg_tag, $site_content, $match_result); 
+ fclose($site_fd); 
+ return $match_result[1]; 
+} 
+```
+
+9.数据表menu （mainmenu.subemnu.url）,用递归法写出一树型菜单，将所有的menu列出来。
+
+```
+<html>
+<head><title>tree</title></head>
+<body>
+<form>
+<?php
+function GenerateMenu($id=0,$str="")
+{
+     $result=mysql_query("select mainmenu,url,submenu from menu where mainmenu=$id");
+     while($row=mysql_fetch_array($result))
+     {
+         echo $str.$row["url"]."<br />";
+         GenerateMenu($row["submenu"],$str."--");
+     }
+     mysql_free_result($result);
+}
+```
+
+10.写一个简单的示例，描述面向对象的知识点。如继承，属性，方法，访问控制模式。
+11.请简述数据库设计的规范及举例说明。
+
+​	1命名规范（使用前缀不超过5字）
+
+​	2字段类型规范（尽量少的存储空间来存数数据）比如能用int的就不用char或者varchar
+
+​	3sql语句规范（少用SELECT *）
+
+12.两张表city表和province表。分别为城市与省份的关系表。
+1>显示城市的基本信息。ID，城市名，所属省份
+
+select A.id,A.Cname,B.Province from city A,province B where A.provinceid=B.id
+
+2>统计每个省份有多少个城市。
+
+select B.id,B.Province,count(*) as num from city A,pr
+
+13.设计一个表存储省市数据，实现12题的查询。
+
+```
+city:
+id City Provinceid
+1 济南 1
+2 石家庄 2
+………. 
+province:
+id Province
+1 山东
+2 河北
+……….
+```
+
+14.简述MySQL的索引。主键。唯一索引。联合索引的区别。对数据库的性能有什么影响。
+
+**索引**是一种特殊的对数据表里所有记录的引用指针的文件
+
+**主键**，是一种特殊的唯一索引，在一张表中只能定义一个主键索引，主键用于唯一标识一条记录，使用关键字 PRIMARY KEY 来创建。
+
+唯一索引：普通索引用关键字 UNIQUE 
+
+简述下MySQL的存储引擎及各自的主要特点。
+
+主要的myisam：有储存限制，支持表锁支持全文索引空间使用少，占内存少
+
+innodb：64Tb储存限制，支持事务和行锁及全文索引，支持外键
+
+16.简述下你平常工作中使用过的权限管理部分，你是如何理解与实现的？
+
+用户-角色-权限
+
+权限得多少基于角色分配到用户
+
+17.简述下多台web服务器如何共享SESSION。
+
+NFS共享Session
+
+公共的NFS服务器（Network File Server）做共享服务器，所有的Web服务器登陆的时候把session数据写到这台服务器上，那么所有的session数据其实都是保存在这台 NFS服务器上的，不论用户访问哪台Web服务器，都要来这台服务器获取session数据，那么就能够实现共享session数据了。
+
+18.memcached,redis,mongodb的区别联系。
+
+1. memcached单个key老版本是1M，新版本是2M。 redis单个key大小为512M
+3. memcached是一个多线程的缓存服务器，而redis是一个单线程的服务器
+4. memcached数据不能持久化，断电后数据丢失， redis是可以进行持久化的。可以使用RDB机制和AOF机制进行数据持久化
+6. memcached不支持集群， redis支持集群，并且redis有最多16个库。
+8. redis支持更多的数据类型，而memcached只有键值对，我们需要自行处理值。
+
+19.简述下你对MVC的理解，优缺点是什么，如果让你实现一个MVC框架，你想怎样实现？
+
+**MVC是三个单词的首字母缩写，它们是Model（模型：程序需要操作的数据或信息）、View（视图：提供给用户的操作界面，是程序的外壳。）和Controller（控制：选取"数据层"中的数据，然后对其进行相应的操作，产生最终结果。）。**
+
+
+
+MVC的优点：低耦合性、高重用性和可适用性、较低的生命周期成本、快速的部署、可维护性、可扩展性、有利于软件工程化管理
+
+MVC的缺点：不适合小型规模的应用程序。没有明确的定义，完全理解MVC并不容易。
+
+20.对于大流量的网站，您采用什么样的方法来解决访问量问题？
+
+负载均衡 优化数据库访问 优化memcached,redis，升级硬件

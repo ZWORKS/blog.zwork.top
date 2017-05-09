@@ -1,0 +1,19 @@
+<?php if($gid > 0 && $gid < 5) { ?>
+<div class="text-center">
+	<label class="m-r-1">
+		<input type="checkbox" data-target='input[name="modtid"]' class="checkall m-t-sm m-r-sm" value="" aria-label="<?php echo lang('checkall');?>" /><?php echo lang('checkall');?>
+	</label>
+	
+	<div class="btn-group mod-button" role="group" aria-label="">
+		
+		<button type="button" class="btn btn-secondary delete"><?php echo lang('delete');?></button>
+		
+		<button type="button" class="btn btn-secondary move"><?php echo lang('move');?></button>
+		<button type="button" class="btn btn-secondary digest"><?php echo lang('digest');?></button>
+		<button type="button" class="btn btn-secondary top"><?php echo lang('top');?></button>
+		
+		<button type="button" class="btn btn-secondary _close"><?php echo lang('close');?></button>
+		
+	</div>
+</div>
+<?php } ?>
